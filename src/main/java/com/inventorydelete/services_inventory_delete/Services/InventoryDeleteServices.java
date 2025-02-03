@@ -20,16 +20,16 @@ public class InventoryDeleteServices {
     }
 
     public ApiResponse<Inventory> deleteInventory(String codice) {
-        Inventory existingInventory = _repository.findByCodigoInventario(codice);
+        Inventory existingInventory = _repository.findByInventoryCode(codice);
         if (existingInventory == null) {
-            return new ApiResponse<Inventory>("error", null, "El inventario con el código proporcionado no existe.");
+            return new ApiResponse<Inventory>("error", null, "The inventory with the provided code does not exist.");
         }
     
-        existingInventory.setEstado(false);
-        existingInventory.setFechaActualizacion(LocalDateTime.now()); 
+        existingInventory.setStatus(false);
+        existingInventory.setUpdatedAt(LocalDateTime.now()); 
     
         _repository.save(existingInventory);
-        return new ApiResponse<Inventory>("success", existingInventory, "Inventario eliminado correctamente (eliminación lógica).");
+        return new ApiResponse<Inventory>("success", existingInventory, "Inventory successfully deleted.");
     }  
     
 }
